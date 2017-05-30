@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,21 +16,27 @@ public class HeroController : MonoBehaviour {
 	Rigidbody2D myBody = null;
 	SpriteRenderer sr = null;
 	Animator animator = null;
+	Transform heroParent = null;
 
 	// Use this for initialization
 	void Start () {
 		myBody = this.GetComponent<Rigidbody2D> ();
 		sr = GetComponent<SpriteRenderer>();
 		animator = GetComponent<Animator> ();
+		heroParent = this.transform.parent;
 
 		LevelController.current.setStartPosition (transform.position);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		UpdateMove ();
-		UpdateGrounded ();
-		UpdateJump ();
+		if (!isDying) {
+			UpdateMove ();
+			UpdateGrounded ();
+			UpdateJump ();
+		} else {
+			UpdateDie ();
+		}
 	}
 
 	void UpdateMove() {
@@ -60,11 +67,30 @@ public class HeroController : MonoBehaviour {
 		RaycastHit2D hit = Physics2D.Linecast(from, to, layer_id);
 		if(hit) {
 			isGrounded = true;
+			if(hit.transform != null
+				&& hit.transform.GetComponent<MovingPlatform>() != null){
+				//Приліпаємо до платформи
+				SetNewParent(this.transform, hit.transform);
+			}
 		} else {
 			isGrounded = false;
+			SetNewParent(this.transform, this.heroParent);
 		}
 		//Намалювати лінію (для розробника)
 		Debug.DrawLine (from, to, Color.red);
+	}
+
+	static void SetNewParent(Transform obj, Transform new_parent) {
+		if(obj.transform.parent != new_parent) {
+			//Засікаємо позицію у Глобальних координатах
+			Vector3 pos = obj.transform.position;
+			//Встановлюємо нового батька
+			obj.transform.parent = new_parent;
+			//Після зміни батька координати кролика зміняться
+			//Оскільки вони тепер відносно іншого об’єкта
+			//повертаємо кролика в ті самі глобальні координати
+			obj.transform.position = pos;
+		}
 	}
 
 	void UpdateJump() {
@@ -90,6 +116,59 @@ public class HeroController : MonoBehaviour {
 			animator.SetBool ("jump", false);
 		} else {
 			animator.SetBool ("jump", true);
+		}
+	}
+
+	private void UpdateDie () {
+		
+		if (isDying) {
+			timeLeftToDie -= Time.deltaTime;
+			if (timeLeftToDie <= dieAnimationTime / 2) {
+				animator.SetBool ("die", false);
+			}
+			if (timeLeftToDie <= 0) {
+				isDying = false;
+
+				LevelController.current.onRabitDeath (this.gameObject);
+			}
+		}
+	}
+
+	public float dieAnimationTime = 1;
+	float timeLeftToDie;
+	bool isDying = false;
+
+
+	public void Die() {
+		if (isDying) {
+			return;
+		}
+			
+		if (this.isGrounded) {
+			isDying = true;
+			//animator.SetBool ("die", true);
+			animator.Play("DieAnimation");
+			timeLeftToDie = dieAnimationTime;
+		} else {
+			LevelController.current.onRabitDeath (this.gameObject);
+		}
+	}
+
+	bool isBig;
+	public bool IsBig
+	{
+		get 
+		{ 
+			return isBig; 
+		}
+		set 
+		{
+			if (value) {
+				this.transform.localScale = new Vector3 (1.5f, 1.5f, 1.5f);
+			} else {
+				this.transform.localScale = new Vector3 (1, 1, 1);
+			}
+			isBig = value;
 		}
 	}
 }
