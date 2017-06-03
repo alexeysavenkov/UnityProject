@@ -66,8 +66,9 @@ public class OrcOrange : MonoBehaviour {
 
 	public GameObject prefabCarrot;
 	float last_carrot = 0;
+	public float carrotIntervalSeconds = 2.0f;
 	void launchCarrot(Vector2 direction) {
-		if (Time.time - last_carrot > 2.0f) {
+		if (Time.time - last_carrot > carrotIntervalSeconds) {
 			last_carrot = Time.time;
 			//Створюємо копію Prefab
 			GameObject obj = GameObject.Instantiate (this.prefabCarrot);
@@ -82,11 +83,12 @@ public class OrcOrange : MonoBehaviour {
 
 	private Vector3 pointA, pointB;
 	private Mode mode = Mode.GoToA;
+	public float carrotLaunchRadius = 5.0f;
 	float getDirection() {
 		Vector3 rabit_pos = HeroController.lastRabit.transform.position;
 		Vector3 my_pos = this.transform.position;
 
-		if(Mathf.Abs(rabit_pos.x - my_pos.x) < 5.0f) {
+		if(Mathf.Abs(rabit_pos.x - my_pos.x) < carrotLaunchRadius) {
 			this.launchCarrot (rabit_pos - my_pos);
 		}
 
