@@ -86,7 +86,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 0.69}
+  m_Size: {x: 1, y: 0.69}
   m_EdgeRadius: 0
 --- !u!114 &114137664377695936
 MonoBehaviour:
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hideAnimation: 0
-  speed: 3
+  speed: 2
 --- !u!212 &212166342893369088
 SpriteRenderer:
   m_ObjectHideFlags: 1

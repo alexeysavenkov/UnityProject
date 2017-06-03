@@ -491,7 +491,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 662868452}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.81, y: 2.82, z: 0}
+  m_LocalPosition: {x: -10.81, y: 2.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1880248747}
@@ -511,7 +511,7 @@ MonoBehaviour:
   speed: 1
   MaxJumpTime: 2
   JumpSpeed: 2
-  MoveBy: {x: -6, y: 0, z: 0}
+  MoveBy: {x: -5, y: 0, z: 0}
   prefabCarrot: {fileID: 1852302792392512, guid: 75465009ef2404942b6f714c14204a3f,
     type: 2}
   dieAnimationTime: 1
@@ -1507,7 +1507,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1511966832}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12.5, y: -0.87, z: 0}
+  m_LocalPosition: {x: 12.61, y: -0.89, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1880248747}
@@ -1524,7 +1524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7621db0a0a5d4ec6bad9d7f06fb023b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 2
   MaxJumpTime: 2
   JumpSpeed: 2
   MoveBy: {x: -6, y: 0, z: 0}
@@ -1558,7 +1558,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 9, y: 0.8}
+  m_Offset: {x: 0, y: 0.8}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -1569,7 +1569,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.4}
+  m_Size: {x: 1.22, y: 1.42}
   m_EdgeRadius: 0
 --- !u!50 &1511966838
 Rigidbody2D:
@@ -1582,7 +1582,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
