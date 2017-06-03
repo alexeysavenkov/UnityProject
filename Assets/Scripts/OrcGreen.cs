@@ -201,7 +201,7 @@ public class OrcGreen : MonoBehaviour {
 			GameObject rabbit = heroController.gameObject;
 			if (rabbit.transform.position.y > this.transform.position.y + 1) {
 				this.Die ();
-				heroController.myBody.velocity += new Vector2 (0, 5);
+				heroController.myBody.velocity += new Vector2 (0, 15);
 			} else {
 				this.animator.SetTrigger ("attack");
 				heroController.Die ();

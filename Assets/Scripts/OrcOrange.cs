@@ -219,7 +219,7 @@ public class OrcOrange : MonoBehaviour {
 			GameObject rabbit = heroController.gameObject;
 			if (rabbit.transform.position.y > this.transform.position.y + 1) {
 				this.Die ();
-				heroController.myBody.AddForce (new Vector2 (0, 5));
+				heroController.myBody.AddForce (new Vector2 (0, 15));
 			} else {
 				this.animator.SetTrigger ("attack");
 				heroController.Die ();
