@@ -32,4 +32,20 @@ public class LevelController : MonoBehaviour {
 			CoinController.current.updateUI (coins);
 		}
 	}
+
+	private int fruits = 0;
+	public void addFruits(int n) {
+		fruits += n;
+		if (FruitController.current != null) {
+			FruitController.current.updateUI (fruits);
+		}
+	}
+
+	private List<Crystal.Color> crystals = new List<Crystal.Color>();
+	public void addCrystal(Crystal.Color color) {
+		this.crystals.Add (color);
+		if (CrystalController.current != null) {
+			CrystalController.current.updateUI (crystals);
+		}
+	}
 }
