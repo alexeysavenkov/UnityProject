@@ -12,6 +12,8 @@ public class HeroController : MonoBehaviour {
 	public float MaxJumpTime = 2f;
 	public float JumpSpeed = 2f;
 
+	public bool isDisabled = false;
+
 
 	public Rigidbody2D myBody = null;
 	SpriteRenderer sr = null;
@@ -35,12 +37,14 @@ public class HeroController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (!isDying) {
-			UpdateMove ();
-			UpdateGrounded ();
-			UpdateJump ();
-		} else {
-			UpdateDie ();
+		if (!isDisabled) {
+			if (!isDying) {
+				UpdateMove ();
+				UpdateGrounded ();
+				UpdateJump ();
+			} else {
+				UpdateDie ();
+			}
 		}
 	}
 
