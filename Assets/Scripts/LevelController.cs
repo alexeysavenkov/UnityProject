@@ -16,7 +16,18 @@ public class LevelController : MonoBehaviour {
 		musicSource = gameObject.AddComponent<AudioSource>();
 		musicSource.clip = music;
 		musicSource.loop = true;
-		musicSource.Play ();
+		if (PlayerPrefs.GetInt ("music", 1) == 1) {
+			musicSource.Play ();
+		}
+	}
+
+	public void toggleMusic(bool enable) {
+		PlayerPrefs.SetInt ("music", enable ? 1 : 0);
+		if (enable) {
+			musicSource.Play ();
+		} else {
+			musicSource.Stop ();
+		}
 	}
 
 	Vector3 startingPosition;
