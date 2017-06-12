@@ -27,8 +27,15 @@ public class LevelController : MonoBehaviour {
 		if (level > 0) {
 			LevelStat levelStat = LevelStat.fromStorage (level);
 			this.fruits = new HashSet<int> (levelStat.collectedFruits);
+
 		}
 		this.globalCoins = GameStats.fromStorage ().collectedCoins;
+
+	}
+
+	void Start() {
+		if(FruitController.current != null)
+			FruitController.current.updateUI (fruits.Count);
 	}
 
 	public void toggleMusic(bool enable) {
