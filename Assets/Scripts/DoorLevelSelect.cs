@@ -8,6 +8,7 @@ public class DoorLevelSelect : MonoBehaviour {
 	public int levelToSelect;
 
 	void OnTriggerEnter2D(Collider2D collider) {
-		SceneManager.LoadScene ("Level" + levelToSelect);
+		if (levelToSelect == 1 || LevelStat.fromStorage (levelToSelect - 1).levelPassed)
+			SceneManager.LoadScene ("Level" + levelToSelect);
 	}
 }

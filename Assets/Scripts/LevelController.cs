@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelController : MonoBehaviour {
 
@@ -13,6 +14,7 @@ public class LevelController : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
+		//PlayerPrefs.DeleteAll();
 		current = this;
 
 		musicSource = gameObject.AddComponent<AudioSource>();
@@ -22,10 +24,11 @@ public class LevelController : MonoBehaviour {
 			musicSource.Play ();
 		}
 
-		LevelStat levelStat = LevelStat.fromStorage (level);
-		this.fruits = new HashSet<> (levelStat.collectedFruits);
-		this.coins = levelStat.collectedCoins;
-
+		if (level > 0) {
+			LevelStat levelStat = LevelStat.fromStorage (level);
+			this.fruits = new HashSet<int> (levelStat.collectedFruits);
+		}
+		this.globalCoins = GameStats.fromStorage ().collectedCoins;
 	}
 
 	public void toggleMusic(bool enable) {
@@ -46,7 +49,7 @@ public class LevelController : MonoBehaviour {
 			LivesController.current.onRabitDeath ();
 		}
 
-		if (LivesController.current.livesLeft > 0) {
+		if (SceneManager.GetActiveScene().name == "LevelSelect" || LivesController.current.livesLeft > 0) {
 			//При смерті кролика повертаємо на початкову позицію
 			rabit.transform.position = this.startingPosition;
 		} else {
@@ -59,6 +62,7 @@ public class LevelController : MonoBehaviour {
 		}
 	}
 
+	private int globalCoins;
 	private int coins = 0;
 	public void addCoin() {
 		coins ++;
@@ -98,6 +102,7 @@ public class LevelController : MonoBehaviour {
 
 	public LevelStat getStats() {
 		LevelStat res = new LevelStat {
+			level = level,
 			levelPassed = true,
 			collectedFruits = new List<int>(fruits),
 			maxFruits = FruitController.current.fruitLimit,

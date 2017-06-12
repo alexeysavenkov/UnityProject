@@ -14,9 +14,10 @@ public class GameStats {
 
 	public static GameStats fromStorage() {
 		string str = PlayerPrefs.GetString ("stats", null);
-		if (str == null) {
+		GameStats stats = JsonUtility.FromJson<GameStats> (str);
+		if (str == null || stats == null) {
 			return new GameStats ();
 		}
-		return JsonUtility.FromJson<GameStats> (str);
+		return stats;
 	}
 }

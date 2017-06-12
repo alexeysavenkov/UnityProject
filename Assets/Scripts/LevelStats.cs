@@ -15,7 +15,7 @@ public class LevelStat {
 
 	public int collectedCoins = 0;
 
-	public List<Crystal.Color> collectedCrystals = new List<int>();
+	public List<Crystal.Color> collectedCrystals = new List<Crystal.Color>();
 	public bool hasAllCrystals = false;
 
 	public void save() {
@@ -25,7 +25,7 @@ public class LevelStat {
 			gameStats.levelStats.Add (new LevelStat { level = i + 1 });
 		}
 
-		gameStats.levelStats[level] = this;
+		gameStats.levelStats[level - 1] = this;
 		gameStats.collectedCoins += this.collectedCoins;
 
 		gameStats.save ();
