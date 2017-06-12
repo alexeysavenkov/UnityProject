@@ -6,10 +6,17 @@ public class LevelController : MonoBehaviour {
 
 	public static LevelController current;
 
+	public AudioClip music = null;
+	AudioSource musicSource = null;
+
 	// Use this for initialization
 	void Awake () {
 		current = this;
 
+		musicSource = gameObject.AddComponent<AudioSource>();
+		musicSource.clip = music;
+		musicSource.loop = true;
+		musicSource.Play ();
 	}
 
 	Vector3 startingPosition;
@@ -48,4 +55,19 @@ public class LevelController : MonoBehaviour {
 			CrystalController.current.updateUI (crystals);
 		}
 	}
+
+	public GameObject settingsPrefab;
+	public GameObject popupParent;
+
+	public void showSettings() {
+		//Знайти батьківський елемент
+		GameObject parent = UICamera.first.transform.parent.gameObject;
+		//Створити Prefab
+		GameObject obj = NGUITools.AddChild (parent, settingsPrefab);
+		//Отримати доступ до компоненту (щоб передати параметри)
+		SettingsPopUp popup = obj.GetComponent<SettingsPopUp>();
+		//...
+	}
+
+
 }

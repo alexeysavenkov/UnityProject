@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class HeroController : MonoBehaviour {
 
+	public AudioClip attackSound, walkSound, dieSound;
+	public AudioSource attackSoundSource, walkSoundSource, dieSoundSource;
+
 	public float speed = 1;
 	bool isGrounded = false;
 	bool JumpActive = false;
@@ -33,6 +36,16 @@ public class HeroController : MonoBehaviour {
 		heroParent = this.transform.parent;
 
 		LevelController.current.setStartPosition (transform.position);
+
+
+		attackSoundSource = gameObject.AddComponent<AudioSource> ();
+		attackSoundSource.clip = attackSound;
+
+		walkSoundSource = gameObject.AddComponent<AudioSource> ();
+		walkSoundSource.clip = walkSound;
+
+		dieSoundSource = gameObject.AddComponent<AudioSource> ();
+		dieSoundSource.clip = dieSound;
 	}
 	
 	// Update is called once per frame
@@ -157,6 +170,9 @@ public class HeroController : MonoBehaviour {
 			isDying = true;
 			//animator.SetBool ("die", true);
 			animator.Play("DieAnimation");
+			if (SoundManager.Instance.isSoundOn ()) {
+				dieSoundSource.Play ();
+			}
 			timeLeftToDie = dieAnimationTime;
 		} else {
 			LevelController.current.onRabitDeath (this.gameObject);

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class OrcOrange : MonoBehaviour {
 
+	public AudioClip attackSound;
+	public AudioSource attackSoundSource;
+
 	public float speed = 1;
 	bool isGrounded = false;
 	bool JumpActive = false;
@@ -26,6 +29,8 @@ public class OrcOrange : MonoBehaviour {
 		pointA = this.transform.position;
 		pointB = this.pointA + MoveBy;
 
+		attackSoundSource = gameObject.AddComponent<AudioSource> ();
+		attackSoundSource.clip = attackSound;
 	}
 
 	// Update is called once per frame
@@ -220,10 +225,14 @@ public class OrcOrange : MonoBehaviour {
 			if (rabbit.transform.position.y > this.transform.position.y + 1) {
 				this.Die ();
 				heroController.myBody.AddForce (new Vector2 (0, 15));
+				if (SoundManager.Instance.isSoundOn ()) {
+					heroController.attackSoundSource.Play ();
+				}
 			} else {
 				this.animator.SetTrigger ("attack");
 				heroController.Die ();
 			}
 		}
 	}
+
 }

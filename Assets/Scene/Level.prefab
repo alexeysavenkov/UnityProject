@@ -51,3 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ecfbf861ae894da299b0d42341554c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  music: {fileID: 8300000, guid: 57a5b2120c2d04fa9bcb5b2e99ee9361, type: 3}
+  settingsPrefab: {fileID: 1357563578219566, guid: b403a95c014b743b3b1ab30f8300811b,
+    type: 2}
+  popupParent: {fileID: 0}
