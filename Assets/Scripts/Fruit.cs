@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Fruit : Collectable {
+	public int id;
+
 	protected override void OnRabitHit (HeroController rabit) {
 		this.CollectedHide ();
-		LevelController.current.addFruits (1);
+		LevelController.current.addFruit (id);
 	}
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelController : MonoBehaviour {
 
 	public static LevelController current;
+	public GameObject loosePopupPrefab;
 
 	public AudioClip music = null;
 	AudioSource musicSource = null;
@@ -35,27 +36,36 @@ public class LevelController : MonoBehaviour {
 		this.startingPosition = pos;
 	}
 	public void onRabitDeath(GameObject rabit) {
-		//При смерті кролика повертаємо на початкову позицію
-		rabit.transform.position = this.startingPosition;
-		coins = 0;
 		if (LivesController.current != null) {
 			LivesController.current.onRabitDeath ();
+		}
+
+		if (LivesController.current.livesLeft > 0) {
+			//При смерті кролика повертаємо на початкову позицію
+			rabit.transform.position = this.startingPosition;
+		} else {
+			coins = 0;
+			//Знайти батьківський елемент
+			GameObject parent = UICamera.first.transform.parent.gameObject;
+			//Створити Prefab
+			GameObject obj = NGUITools.AddChild (parent, loosePopupPrefab);
+			LoosePopup loosePopup = obj.GetComponent<LoosePopup> ();
 		}
 	}
 
 	private int coins = 0;
-	public void addCoins(int n) {
-		coins += n;
+	public void addCoin() {
+		coins ++;
 		if (CoinController.current != null) {
 			CoinController.current.updateUI (coins);
 		}
 	}
 
-	private int fruits = 0;
-	public void addFruits(int n) {
-		fruits += n;
+	private HashSet<int> fruits = new HashSet<int>();
+	public void addFruit(int fruitId) {
+		fruits.Add(fruitId);
 		if (FruitController.current != null) {
-			FruitController.current.updateUI (fruits);
+			FruitController.current.updateUI (fruits.Count);
 		}
 	}
 
@@ -80,5 +90,18 @@ public class LevelController : MonoBehaviour {
 		//...
 	}
 
+	public LevelStat getStats() {
+		LevelStat res = new LevelStat {
+			levelPassed = true,
+			collectedFruits = new List<int>(fruits),
+			maxFruits = FruitController.current.fruitLimit,
+			hasAllFruits = fruits.Count >= FruitController.current.fruitLimit,
+			collectedCoins = coins,
+			collectedCrystals = crystals,
+			hasAllCrystals = crystals.Count >= 3
+		};
+
+		return res;
+	}
 
 }
