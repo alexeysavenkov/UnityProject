@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class GameStats {
 	public List<LevelStat> levelStats = new List<LevelStat>();
+	public int collectedCoins = 0;
 
 	public void save() {
 		string str = JsonUtility.ToJson(this);

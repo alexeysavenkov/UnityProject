@@ -31,6 +31,7 @@ public class DoorLevelExit : MonoBehaviour {
 			LevelStat levelStat = LevelController.current.getStats ();
 			winPopup.setStats (levelStat);
 
+			levelStat.save ();
 		}
 	}
 }

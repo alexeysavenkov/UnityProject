@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LevelController : MonoBehaviour {
 
+	public int level;
 	public static LevelController current;
 	public GameObject loosePopupPrefab;
 
@@ -20,6 +21,11 @@ public class LevelController : MonoBehaviour {
 		if (PlayerPrefs.GetInt ("music", 1) == 1) {
 			musicSource.Play ();
 		}
+
+		LevelStat levelStat = LevelStat.fromStorage (level);
+		this.fruits = new HashSet<> (levelStat.collectedFruits);
+		this.coins = levelStat.collectedCoins;
+
 	}
 
 	public void toggleMusic(bool enable) {
