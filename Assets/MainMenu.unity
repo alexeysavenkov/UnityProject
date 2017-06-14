@@ -233,6 +233,16 @@ Prefab:
       propertyPath: isDisabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114025665630245520, guid: 0b909276f67a8426293e2d0f72665b76,
+        type: 2}
+      propertyPath: JumpSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114025665630245520, guid: 0b909276f67a8426293e2d0f72665b76,
+        type: 2}
+      propertyPath: speed
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0b909276f67a8426293e2d0f72665b76, type: 2}
   m_IsPrefabParent: 0
