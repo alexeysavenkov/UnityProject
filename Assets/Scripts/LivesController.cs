@@ -7,6 +7,7 @@ public class LivesController : MonoBehaviour {
 	public static LivesController current;
 
 	public Sprite emptyHeart;
+	public Sprite fullHeart;
 
 	// Use this for initialization
 	void Start () {
@@ -25,6 +26,21 @@ public class LivesController : MonoBehaviour {
 			if (sprite.sprite2D != emptyHeart) {
 				sprite.sprite2D = emptyHeart;
 				break;
+			}
+		}
+	}
+
+	public void AddLife() {
+		if (livesLeft != 3) {
+			livesLeft++;
+			int childrenCnt = transform.childCount;
+			for (int i = childrenCnt - 1; i >= 0; i--) {
+				Transform child = transform.GetChild (i);
+				UI2DSprite sprite = child.gameObject.GetComponent<UI2DSprite> ();
+				if (sprite.sprite2D == emptyHeart) {
+					sprite.sprite2D = fullHeart;
+					break;
+				}
 			}
 		}
 	}

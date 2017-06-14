@@ -25,7 +25,10 @@ public class LevelStat {
 			gameStats.levelStats.Add (new LevelStat { level = i + 1 });
 		}
 
-		gameStats.levelStats[level - 1] = this;
+		gameStats.levelStats [level - 1].levelPassed = true;
+		gameStats.levelStats [level - 1].collectedFruits = this.collectedFruits;
+		gameStats.levelStats [level - 1].hasAllFruits |= this.hasAllFruits;
+		gameStats.levelStats [level - 1].hasAllCrystals |= this.hasAllCrystals;
 		gameStats.collectedCoins += this.collectedCoins;
 
 		gameStats.save ();
