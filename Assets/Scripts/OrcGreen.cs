@@ -76,7 +76,7 @@ public class OrcGreen : MonoBehaviour {
 		Vector3 my_pos = this.transform.position;
 
 		if (rabit_pos.x > Mathf.Min (pointA.x, pointB.x)
-			&& rabit_pos.x < Mathf.Max (pointA.x, pointB.x) && Mathf.Abs(rabit_pos.x - my_pos.x) <= 1) {
+			&& rabit_pos.x < Mathf.Max (pointA.x, pointB.x) && Mathf.Abs(rabit_pos.y - my_pos.y) <= 1) {
 			mode = Mode.Attack;
 		}
 
@@ -94,6 +94,11 @@ public class OrcGreen : MonoBehaviour {
 			}
 			break;
 		case Mode.Attack:
+			if (rabit_pos.x < Mathf.Min (pointA.x, pointB.x)
+				|| rabit_pos.x < Mathf.Max (pointA.x, pointB.x)) {
+				mode = Mode.GoToA;
+				return getDirection ();
+			}
 			if(my_pos.x < rabit_pos.x) {
 				return 1;
 			} else {

@@ -42,6 +42,8 @@ public class WinPopup : MonoBehaviour {
 				break;
 			}
 		}
+
+		HeroController.lastRabit.enabled = false;
 	}
 
 	public void onReplayClick() {
