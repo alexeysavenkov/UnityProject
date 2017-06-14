@@ -73,13 +73,14 @@ public class OrcGreen : MonoBehaviour {
 	private Mode mode = Mode.GoToA;
 	float getDirection() {
 		Vector3 rabit_pos = HeroController.lastRabit.transform.position;
+		Vector3 my_pos = this.transform.position;
 
 		if (rabit_pos.x > Mathf.Min (pointA.x, pointB.x)
-			&& rabit_pos.x < Mathf.Max (pointA.x, pointB.x)) {
+			&& rabit_pos.x < Mathf.Max (pointA.x, pointB.x) && Mathf.Abs(rabit_pos.x - my_pos.x) <= 1) {
 			mode = Mode.Attack;
 		}
 
-		Vector3 my_pos = this.transform.position;
+		
 
 		switch (mode) {
 		case Mode.GoToA:
